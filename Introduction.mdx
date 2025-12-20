@@ -1,0 +1,67 @@
+# Smart-Fault-Detector 
+
+##  Project Description
+The **Smart-Fault-Detector** is a specialized diagnostic device engineered to detect actuator faults and failures in high-stakes systems like rockets and robotics. By monitoring the "pulse" of an actuator through electrical and mechanical sensors, it identifies anomalies before they lead to catastrophic system failure.
+
+---
+
+##  Overview
+This system provides a comprehensive health-check for actuators. It tracks electrical parameters, mechanical rotation, and structural vibrations to create a "digital twin" of the actuator's performance. 
+
+---
+
+##  Hardware Architecture
+
+The system is built around the **GLYPH-C3 (ESP32-C3)** microcontroller. The architecture is divided into modular blocks for power management, sensing, and user interface.
+
+*Figure 1: Full System Schematic including ESP32-C3, Power, and Sensor interfaces.*
+
+### Core Components
+* **MCU:** GLYPH-C3 (ESP32-C3) RISC-V microcontroller.
+* **Power:** Integrated **LM2596** buck converter providing stable 5V and 3.3V rails from a +12V source.
+* **Safety:** Features a physical **KillSwitch** and status LED indicators.
+* **User Interface:** I2C-connected **OLED Display** for real-time status.
+
+---
+
+##  Sensing Implementation
+
+The device employs high-precision sensing circuits to monitor actuator health. Notably, the current sensing is achieved using a calibrated **copper PCB trace** as a shunt resistor.
+
+*Figure 2: Detailed Schematic for Opto-isolated Voltage and Current Sensing.*
+
+### Sensor Suite
+| Feature | Implementation | Purpose |
+| :--- | :--- | :--- |
+| **Voltage** | Opto-isolated (PC817) Divider | Safely measures high-voltage rails up to 12V with optical isolation. |
+| **Current** | **Copper Trace Shunt** | Cost-effective and efficient current measurement via voltage drop. |
+| **RPM** | IR Sensor | Non-contact measurement of rotational speed via J5. |
+| **Vibration**| Piezoelectric Sensor | Monitors mechanical impacts and high-frequency wear via J7. |
+
+---
+
+##  Web Dashboard & Data Logging
+The Smart-Fault-Detector ensures data is never lost, whether you are monitoring it live or analyzing it after a flight.
+
+* **Logging:** MicroSD card module for real-time data logging and post-failure forensics.
+* **IoT Dashboard:** A mobile-responsive web server hosted on the ESP32-C3 featuring:
+    * **Live Graphs:** Real-time telemetry for Voltage and Current.
+    * **Wear & Tear Tracking:** Predictive analysis based on vibration patterns.
+
+---
+
+## Technical Specifications
+* **Microcontroller:** ESP32-C3 (RISC-V).
+* **Nominal Input:** 12V DC.
+* **Isolation:** PC817 Optocouplers for safe sensing.
+* **Design Tool:** KiCad E.D.A. 9.0.3.
+
+---
+
+##  Team Robomanipal
+* **Project Created At:** Hardware Hackathon 2.0 , Bangalore
+* **Developers:** Adwait, Vikram, Prahadeesh
+* **Release Date:** December 2025
+
+---
+© 2025 Team Robomanipal. All Rights Reserved.
