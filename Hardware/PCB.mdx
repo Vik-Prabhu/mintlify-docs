@@ -1,3 +1,44 @@
 ---
 title: "PCB"
 ---
+#  Hardware Architecture Breakdown
+
+---
+
+## 1. Overview
+The Smart Fault Detector is a modular health-monitoring device designed to detect actuator faults and failures in mission-critical environments such as rockets, rovers, and base stations. It fuses electrical telemetry such as voltage and current drawn by the actuator with mechanical data such as rpm and vibration around the actuator to determine if an actuator is operating within safety parameters and predicts the estimated time to failure.
+
+### 1.1 Flow-Chart
+![Model](/images/Flow_Chart.jpeg)
+
+---
+
+## 2. Schematics
+    ![Model](/images/sch1.jpeg)
+    ![Model](/images/sch2.jpeg)
+
+---
+
+## 3. Key Features
+1. Current sensing - Upto 2A using the PCB trace shunt for 1 channel. 
+2. Voltage Sensing - Using voltage divider/using optocoupler (for electrical isolation)
+3. Tachometer - To measure RPM of the actuator 
+4. Vibration Sensor - To measure mechanical degradtion due to vibrations
+5. Dashboard - ESP32 broadcasts the previous logged and live data using WiFi
+6. A SD card is present to log data and can be used to debug after major failure
+---
+
+## 4. Application
+Any system which needs to be robust and needs maintenance - like rovers and other AGV (Autonomous Guided Vehicles) etc
+
+---
+
+## 5. Modules required 
+
+- GLYPH-C3 (ESP32-C3) Development Board
+- MicroSD Card Module
+- LM2596 Buck Converter
+- PC817 Optocoupler
+- IR Sensor
+- Piezoelectric Element
+- 0.96-inch OLED Display

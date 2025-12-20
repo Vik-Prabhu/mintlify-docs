@@ -5,15 +5,10 @@ The **Smart-Fault-Detector** is a specialized diagnostic device engineered to de
 
 ---
 
-##  Overview
-This system provides a comprehensive health-check for actuators. It tracks electrical parameters, mechanical rotation, and structural vibrations to create a "digital twin" of the actuator's performance. 
-
----
-
 ##  Hardware Architecture
 
 The system is built around the **GLYPH-C3 (ESP32-C3)** microcontroller. The architecture is divided into modular blocks for power management, sensing, and user interface.
-
+![Model](/images/pinout.avif)
 *Figure 1: Full System Schematic including ESP32-C3, Power, and Sensor interfaces.*
 
 ### Core Components
@@ -25,18 +20,12 @@ The system is built around the **GLYPH-C3 (ESP32-C3)** microcontroller. The arch
 ---
 
 ##  Sensing Implementation
-
-The device employs high-precision sensing circuits to monitor actuator health. Notably, the current sensing is achieved using a calibrated **copper PCB trace** as a shunt resistor.
-
-*Figure 2: Detailed Schematic for Opto-isolated Voltage and Current Sensing.*
-
-### Sensor Suite
 | Feature | Implementation | Purpose |
 | :--- | :--- | :--- |
 | **Voltage** | Opto-isolated (PC817) Divider | Safely measures high-voltage rails up to 12V with optical isolation. |
 | **Current** | **Copper Trace Shunt** | Cost-effective and efficient current measurement via voltage drop. |
-| **RPM** | IR Sensor | Non-contact measurement of rotational speed via J5. |
-| **Vibration**| Piezoelectric Sensor | Monitors mechanical impacts and high-frequency wear via J7. |
+| **RPM** | IR Sensor | Non-contact measurement of rotational speed. |
+| **Vibration**| Piezoelectric Sensor | Monitors mechanical impacts and high-frequency wear. |
 
 ---
 

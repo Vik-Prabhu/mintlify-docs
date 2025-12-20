@@ -1,33 +1,32 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'Prerequisites'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+This tutorial covers the firmware implementation for the **GLYPH C3**, focusing on multi-port sensor data acquisition (Voltage, Current, RPM, Vibration), local OLED visualization, and remote logging via JSON over Wi-Fi.
 
-## Welcome
+---
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+## Table of Contents
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+- [Prerequisites](#prerequisites)
+- [Programming the ESP32-C3](#programming-the-esp32-c3)
 
-## Authentication
+## Prerequisites
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+Before you begin coding for the **glyphC3**, you must configure your development environment and install the necessary dependencies.
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+### 1. Environment Setup
+Follow the complete guide below to set up the Arduino IDE and configure the ESP32-C3 board package:
+* **[glyphC3 Arduino IDE Setup Guide](https://learn.pcbcupid.com/boards/needs/arduino-ide-setup)**
+
+### 2. Library Installation
+Open the **Library Manager** in the Arduino IDE (*Sketch > Include Library > Manage Libraries*) and install the following:
+
+* **ArduinoJson** (by Benoit Blanchon)
+* **Adafruit SSD1306** (by Adafruit)
+* **Adafruit GFX Library** (by Adafruit)
+
+> [!TIP]
+> Libraries such as `WiFi.h`, `HTTPClient.h`, `SPI.h`, `SD.h`, and `Wire.h` are part of the ESP32 core and are installed automatically when you follow the setup guide above.
+
+---

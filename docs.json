@@ -22,7 +22,6 @@
                     {
                         "group": "Hardware",
                         "pages": [
-                            "Hardware/Prerequisites",
                             "Hardware/PCB"
                         ]
                     },
@@ -48,7 +47,7 @@
     },
     "logo": {
         "light": "/logo/rmlogo.jpeg",
-        "dark": "/logo/rmlogo.jpeg"
+        "dark": "/logo/rmlogo_dark.jpeg"
     },
     "navbar": {
         "links": [
