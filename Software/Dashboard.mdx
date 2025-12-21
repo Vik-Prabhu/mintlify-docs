@@ -1,0 +1,66 @@
+---
+title: Dashboard
+description: Technical overview of the Flask-based IoT Fault Detector Web Server
+---
+
+## 1. System Architecture
+
+The server operates on a "Push-Stream" model to ensure low-latency data visualization.
+
+
+
+* **Ingestion**: The hardware (ESP32) sends a JSON payload to the `/update` endpoint via HTTP POST.
+* **Broadcasting**: The server emits a `sensor_update` event to all connected web clients via SocketIO.
+* **Visualization**: The browser receives the data and updates the charts and health indicators dynamically.
+
+---
+## 2. Development Setup
+
+
+### Backend Dependencies:
+
+The backend is built on the Python ecosystem. These packages manage the web server, API routing, and real-time data broadcasting.
+
+* **Flask**: The core micro-framework used for web routing and serving the HTML interface.
+* **Flask-SocketIO**: Enables low-latency, bi-directional communication between the server and the dashboard via WebSockets.
+* **eventlet or gevent**: (Recommended) High-concurrency libraries often used as the underlying server for SocketIO.
+
+#### Installation:
+You can install these dependencies using `pip`:
+
+```bash
+pip install flask flask-socketio
+```
+
+---
+
+## 3. API Reference
+
+### Data Update Endpoint
+`POST /update`
+
+The primary data entry point for the IoT hardware.
+
+**Request Body:**
+```json
+{
+  "ports": [
+    {
+      "port": 1,
+      "voltage": 12.5,
+      "current": 0.8
+    },
+    {
+      "port": 2,
+      "voltage": 12.4,
+      "current": 0
+    }
+  ],
+  "vibration": 5,
+  "rpm": 1500
+}
+```
+    <a href="server.py" download>
+    Download Server Python Script
+    </a> 
+---

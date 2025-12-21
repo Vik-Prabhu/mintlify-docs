@@ -16,7 +16,8 @@
                     {
                         "group": "Getting started",
                         "pages": [
-                            "Introduction"
+                            "Introduction",
+                            "Future Scope"
                         ]
                     },
                     {
@@ -29,7 +30,9 @@
                         "group": "Software",
                         "pages": [
                             "Software/Prerequisites",
-                            "Software/Code"
+                            "Software/Code",
+                            "Software/Dashboard",
+                            "Software/Predictive ML Model"
                         ]
                     }
                 ]

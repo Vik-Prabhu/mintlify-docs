@@ -1,0 +1,83 @@
+---
+title: Predictive ML Model
+description: Technical overview of the tinyML (rule-based ML) Model
+---
+
+This project provides a **Rule-Based Diagnostic System** to calculate the health percentage of an industrial actuator based on real-time sensor data. It evaluates electrical and mechanical stress factors to provide a predictive maintenance score.
+
+## Overview of Metrics
+
+The calculator uses three primary sensor inputs to determine the degradation of the hardware:
+
+1.  **Current (A):** Measures electrical load and resistance.
+2.  **Voltage (V):** Monitors power stability and supply quality.
+3.  **Vibration (g):** Detects mechanical wear, bearing failure, or misalignment.
+
+---
+
+## Logic & Ruleset
+
+The health score starts at **100.0%** and is reduced based on the following logic:
+
+| Rule | Trigger | Penalty |
+| :--- | :--- | :--- |
+| **Current Increase** | Every 1.0A above baseline | -3.0% |
+| **Voltage Deviation** | Deviation from target (e.g., 220V) | Proportional (up to 20%) |
+| **Vibration** | Every 1.0g above baseline | -8.0% |
+| **Trend Analysis** | Rapid spikes in Current or Vibration | -5.0% each |
+| **Cross-Correlation** | High Current **AND** High Vibration | -15.0% (Severe Alert) |
+| **Efficiency** | Power consumption > 120% of expected | -8.0% |
+
+
+
+---
+
+## Implementation
+
+```python
+def calculate_health(current, voltage, vibration, 
+                     baseline_current=5.0, 
+                     baseline_voltage=220.0, 
+                     baseline_vibration=0.5,
+                     current_trend=0.0,
+                     vibration_trend=0.0):
+    
+    Calculates health percentage (0-100) based on sensor deviations.
+    
+    health = 100.0
+    
+    # 1. Current penalty
+    current_increase = max(0, current - baseline_current)
+    health -= current_increase * 3.0 
+    
+    # 2. Voltage deviation penalty
+    voltage_deviation = abs(voltage - baseline_voltage)
+    health -= (voltage_deviation / baseline_voltage) * 20.0
+    
+    # 3. Vibration penalty
+    vibration_increase = max(0, vibration - baseline_vibration)
+    health -= vibration_increase * 8.0 
+    
+    # 4. Trend penalties
+    if current_trend > 0.05: health -= 5.0
+    if vibration_trend > 0.02: health -= 5.0
+    
+    # 5. Cross-sensor correlation (Severe State)
+    current_severe = (current - baseline_current) > (0.2 * baseline_current)
+    vibration_severe = (vibration - baseline_vibration) > (0.5 * baseline_vibration)
+    if current_severe and vibration_severe:
+        health -= 15.0
+    
+    # 6. Power efficiency check
+    power = voltage * current
+    expected_power = baseline_voltage * baseline_current
+    if power > expected_power * 1.2:
+        health -= 8.0
+    
+    return max(0.0, min(100.0, health))
+
+
+```
+<a href="health_model.py" download>
+Download tinyML Python Script
+</a> 
