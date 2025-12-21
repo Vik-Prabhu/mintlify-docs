@@ -6,7 +6,7 @@ description: 'Description of Functions and Variables'
 
 The `readSensors()` function is the core data-collection routine. It translates physical electrical signals—captured via the Microcontroller's GPIO and Analog-to-Digital Converter (ADC)—into calibrated numerical values used for system monitoring.
 
-Vibration Sensing: Captures a digital High/Low signal to identify mechanical movement or impact.
+Vibration Sensing: Captures a Analog signal from the piezoelectric sensor to identify mechanical movement or impact.
 
 ADC Normalization: Divides raw 12-bit analog values by 4095.0 to create a precise 0 to 1 scaling ratio.
 
@@ -16,12 +16,10 @@ Hardware Scaling: Applies a 6.0x multiplier to compensate for external voltage d
 
 Current Monitoring: Reads the direct voltage output from the Shunt resisstor.
 
-### Code
-
 ```cpp
 void readSensors() {
     // Capture the binary state of the vibration sensor
-    vibState = digitalRead(VIB_PIN);
+    vibState = analogRead(VIB_PIN);
     
     // Read and scale Voltage Pins (2 channels: e.g., Battery and Bus)
     for (int i = 0; i < 2; i++) {
@@ -49,8 +47,6 @@ Disconnection Logic: If STA_DISCONNECTED is detected, it sets the status to fals
 
 Global Status Management: By updating the wifiConnected flag, this code provides a reliable "safety check" for other functions that need to know if the network is available.
 
-#### Code Implementation
-
 ```cpp
 void WiFiEvent(WiFiEvent_t event) {
     switch (event) {
@@ -67,4 +63,118 @@ void WiFiEvent(WiFiEvent_t event) {
         default:
             break;
     }
+}
+```
+### 2.3 RPM Calculation and Interrupt Logic
+
+This module utilizes hardware interrupts to accurately measure the rotations per minute (RPM) of a motor or shaft. By using interrupts, the system ensures that high-speed pulses from an IR sensor are never missed, even while the main program is busy with other tasks.
+
+Hardware Interrupts (IRAM_ATTR) Standard code runs line-by-line. However, a motor spinning at high speed might trigger the sensor while the CPU is busy elsewhere. An Interrupt pauses the main code for a fraction of a microsecond to record the pulse. The IRAM_ATTR attribute ensures the function is stored in internal RAM for the fastest possible execution.
+
+If the motor is spinning while the code is trying to reset pulseCount = 0, the count might increment at that exact moment (a "race condition"). We briefly detach the interrupt to "freeze"
+
+Calculation: If the sensor detects 10 pulses in 1 second, the math becomes 10 pulses/sec X 60 = 600 RPM
+
+```cpp
+// 1. Calculate RPM every 1 second
+if (currentMillis - lastRpmCalc >= 1000) {
+    detachInterrupt(digitalPinToInterrupt(IR_PIN));
+    currentRPM = pulseCount * 60; // Assumes 1 pulse per revolution
+    pulseCount = 0;
+    lastRpmCalc = currentMillis;
+    attachInterrupt(digitalPinToInterrupt(IR_PIN), countPulse, FALLING);
+}
+
+void IRAM_ATTR countPulse() {
+    pulseCount++;
+}
+```
+### 2.4 Cloud Data Transmission (JSON Upload)
+
+The `uploadJSON()` function packages the processed sensor data into a structured format and transmits it to a remote server using the HTTP POST protocol.
+
+JSON (JavaScript Object Notation) is used for this project because it is a lightweight, human-readable data format that is the industry standard for web APIs.
+
+Standardization: Almost every web server (Node.js, Python, Firebase) can parse JSON automatically.
+
+Scalability: We can easily add new sensor types (like temperature or humidity) to the doc without breaking the existing server logic.
+
+Key-Value Pairs: It allows us to label our data (e.g., "rpm": 1500), making it much easier to debug than a raw string of comma-separated numbers.
+
+Detailed Breakdown for New Developers
+1. Managing Memory with StaticJsonDocument Unlike standard variables, JSON objects can consume significant RAM. We use StaticJsonDocument 512 to pre-allocate a specific amount of memory on the "stack." This prevents the system from crashing due to memory fragmentation during long-term operation.
+
+2. The Nested Array Structure The code creates a JsonArray called ports. Inside this array, we nest JsonObject items. This allows the dashboard to display data for "Port 1" and "Port 2" separately while keeping them under a single parent object.
+
+3. Type Safety (String Conversion) The use of serialized(String(v[j], 1)) ensures that floating-point numbers are sent with exactly one decimal place. This keeps the message size small and consistent for the server.
+
+
+```cpp
+void uploadJSON(float v[], float i_arr[], int vib, int rpm) {
+    HTTPClient http;
+    http.begin(serverURL);
+    http.addHeader("Content-Type", "application/json");
+
+    StaticJsonDocument<512> doc;
+    JsonArray ports = doc.createNestedArray("ports");
+    
+    for (int j = 0; j < 2; j++) {
+        JsonObject p = ports.createNestedObject();
+        p["port"] = j + 1;
+        p["voltage"] = serialized(String(v[j], 1));
+
+        if (j < 1) {
+            p["current"] = serialized(String(i_arr[j], 1));
+        } else {
+            p["current"] = 0;
+        }
+    }
+    
+    doc["vibration"] = vib;
+    doc["rpm"] = rpm;
+
+    String payload;
+    serializeJson(doc, payload);
+    
+    int httpResponseCode = http.POST(payload);
+    Serial.printf("HTTP Response code: %d\n", httpResponseCode);
+    
+    http.end();
+}
+```
+### 2.5 Local Display Interface (OLED Update)
+
+The `updateOLED()` function provides real-time visual feedback to the user. It formats sensor data—including voltage, current, vibration status, and RPM—into a structured layout on a 128x64 SSD1306 OLED display.
+
+The Buffer Concept The OLED library uses a "back-buffer." When you call functions like setCursor or printf, nothing happens on the screen immediately. Instead, you are "drawing" on a map in the MCU's memory. The display.display() command at the end is what actually sends that map to the screen via I2C.
+
+
+```cpp
+void updateOLED(int port, float v, float i, int vib) {
+    display.clearDisplay();
+    
+    // 1. Header (Inverted color for emphasis)
+    display.fillRect(0, 0, 128, 14, SSD1306_WHITE);
+    display.setTextColor(SSD1306_BLACK);
+    display.setCursor(4, 3);
+    display.setTextSize(1);
+    display.printf("PORT %d | RPM: %d", port, currentRPM);
+
+    // 2. Main Values (Large text for readability)
+    display.setTextColor(SSD1306_WHITE);
+    display.setCursor(0, 22);
+    display.setTextSize(2);
+    display.printf("%.1fV", v);
+    display.setCursor(70, 22);
+    display.printf("%.1fA", i);
+
+    // 3. Footer (System status)
+    display.drawFastHLine(0, 42, 128, SSD1306_WHITE);
+    display.setTextSize(1);
+    display.setCursor(0, 50);
+    display.printf("VIB: %s", vib ? "ACTIVE" : "OK");
+    display.setCursor(85, 50);
+    display.printf("[%s]", wifiConnected ? "WiFi" : "OFF");
+    
+    display.display();
 }

@@ -7,7 +7,7 @@
         "light": "#07C983",
         "dark": "#15803D"
     },
-    "favicon": "logo/rmlogo.jpeg",
+    "favicon": "logo/oshw-logo-filled-black.png",
     "navigation": {
         "tabs": [
             {
@@ -47,7 +47,7 @@
     },
     "logo": {
         "light": "/logo/rmlogo.jpeg",
-        "dark": "/logo/rmlogo_dark.jpeg"
+        "dark": "/logo/oshw-logo-filled-black.png"
     },
     "navbar": {
         "links": [
