@@ -2,4 +2,69 @@
 title: 'Code'
 description: 'Description of Functions and Variables'
 ---
+## 2.1 Sensor Data Acquisition (readSensors)
 
+The `readSensors()` function is the core data-collection routine. It translates physical electrical signals—captured via the Microcontroller's GPIO and Analog-to-Digital Converter (ADC)—into calibrated numerical values used for system monitoring.
+
+Vibration Sensing: Captures a digital High/Low signal to identify mechanical movement or impact.
+
+ADC Normalization: Divides raw 12-bit analog values by 4095.0 to create a precise 0 to 1 scaling ratio.
+
+Voltage Conversion: Multiplies the ratio by 3.3 to find the actual voltage present at the microcontroller pin.
+
+Hardware Scaling: Applies a 6.0x multiplier to compensate for external voltage dividers, revealing the true high-side battery voltage.
+
+Current Monitoring: Reads the direct voltage output from the Shunt resisstor.
+
+### Code
+
+```cpp
+void readSensors() {
+    // Capture the binary state of the vibration sensor
+    vibState = digitalRead(VIB_PIN);
+    
+    // Read and scale Voltage Pins (2 channels: e.g., Battery and Bus)
+    for (int i = 0; i < 2; i++) {
+        v_buffer[i] = (analogRead(vPins[i]) / 4095.0) * 3.3 * 6.0;
+    }
+
+    // Read and scale Current Pin (1 channel)
+    for (int i = 0; i < 1; i++) {
+        i_buffer[i] = (analogRead(iPins[i]) / 4095.0) * 3.3;
+    }
+}
+
+```
+### 2.2 WiFi Event Handling Logic
+
+The `WiFiEvent()` function is a callback mechanism that monitors the status of the wireless connection asynchronously, ensuring the system can respond to network changes without blocking other tasks.
+
+Event-Driven Listener: This function triggers automatically whenever the WiFi state changes, acting as an asynchronous monitor for your connection status.
+
+Identifying the State: The switch statement checks the incoming event signal to determine if the device has successfully obtained an IP or lost its connection.
+
+Success Logic: When STA_GOT_IP occurs, it sets wifiConnected to true and prints a success message, signaling that the device is ready for network tasks.
+
+Disconnection Logic: If STA_DISCONNECTED is detected, it sets the status to false and alerts the user via the Serial Monitor that a retry is in progress.
+
+Global Status Management: By updating the wifiConnected flag, this code provides a reliable "safety check" for other functions that need to know if the network is available.
+
+#### Code Implementation
+
+```cpp
+void WiFiEvent(WiFiEvent_t event) {
+    switch (event) {
+        case ARDUINO_EVENT_WIFI_STA_GOT_IP:
+            wifiConnected = true;
+            Serial.println("WiFi Connected");
+            break;
+
+        case ARDUINO_EVENT_WIFI_STA_DISCONNECTED:
+            wifiConnected = false;
+            Serial.println("WiFi Disconnected, retrying...");
+            break;
+
+        default:
+            break;
+    }
+}

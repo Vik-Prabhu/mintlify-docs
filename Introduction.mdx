@@ -11,12 +11,6 @@ The system is built around the **GLYPH-C3 (ESP32-C3)** microcontroller. The arch
 ![Model](/images/pinout.avif)
 *Figure 1: Full System Schematic including ESP32-C3, Power, and Sensor interfaces.*
 
-### Core Components
-* **MCU:** GLYPH-C3 (ESP32-C3) RISC-V microcontroller.
-* **Power:** Integrated **LM2596** buck converter providing stable 5V and 3.3V rails from a +12V source.
-* **Safety:** Features a physical **KillSwitch** and status LED indicators.
-* **User Interface:** I2C-connected **OLED Display** for real-time status.
-
 ---
 
 ##  Sensing Implementation
@@ -30,7 +24,8 @@ The system is built around the **GLYPH-C3 (ESP32-C3)** microcontroller. The arch
 ---
 
 ##  Web Dashboard & Data Logging
-The Smart-Fault-Detector ensures data is never lost, whether you are monitoring it live or analyzing it after a flight.
+The Smart-Fault-Detector ensures data is never lost, whether you are monitoring it live or analyzing it after a flight. [Preview](https://example.com)
+
 
 * **Logging:** MicroSD card module for real-time data logging and post-failure forensics.
 * **IoT Dashboard:** A mobile-responsive web server hosted on the ESP32-C3 featuring:
@@ -42,7 +37,6 @@ The Smart-Fault-Detector ensures data is never lost, whether you are monitoring 
 ## Technical Specifications
 * **Microcontroller:** ESP32-C3 (RISC-V).
 * **Nominal Input:** 12V DC.
-* **Isolation:** PC817 Optocouplers for safe sensing.
 * **Design Tool:** KiCad E.D.A. 9.0.3.
 
 ---
