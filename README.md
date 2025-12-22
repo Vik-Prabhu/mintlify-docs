@@ -1,43 +1,99 @@
-# Mintlify Starter Kit
+# Smart Fault Detector - [Github](https://github.com/Addwaaait/Smart-Fault-Detector)
 
-Use the starter kit to get your docs deployed and ready to customize.
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+## 📘 Project Documentation & Deployment
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
+### 🌐 Documentation (Mintlify)
+This project uses **Mintlify** to host clean, modern documentation.
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
+- Built using MDX
+- Supports images, code blocks, and downloadable assets
+- Automatically deployed on every update
 
-## Development
+📖 **Docs URL:**  https://teamrobomanipal-3a657712.mintlify.app/Introduction
+````
+To run docs locally:
+npm install
+mintlify dev
+````
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
-
-```
-npm i -g mint
-```
-
-Run the following command at the root of your documentation, where your `docs.json` is located:
+To deploy docs:
 
 ```
-mint dev
+mintlify publish
 ```
 
-View your local preview at `http://localhost:3000`.
+---
 
-## Publishing changes
+### 🚀 Backend Deployment (Render + Flask)
 
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
+The backend is a **Flask + Socket.IO** server deployed on **Render**.
 
-## Need help?
+#### Why Render?
 
-### Troubleshooting
+* Free tier support
+* Simple GitHub integration
+* Works well with Flask APIs
+* Public endpoint accessible by ESP devices
 
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
+#### Tech Stack
 
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+* Python
+* Flask
+* Flask-SocketIO
+* Eventlet
+* Render Web Service
+
+#### Deployment Flow
+
+1. Push code to GitHub
+2. Create a **Web Service** on Render
+3. Render installs dependencies from `requirements.txt`
+4. App runs on a public HTTPS URL
+
+#### **Backend URL:** [https://teamrobomanipal-3a657712.mintlify.app/Introduction](https://mintlify-docs-w26p.onrender.com
+
+
+---
+
+### 📡 ESP ↔ Server Communication
+
+* ESP device sends data via HTTP / Socket.IO
+* Flask server receives and processes data
+* Real-time updates supported using WebSockets
+* Designed for low-latency actuator/health monitoring
+
+---
+
+### 📂 Key Files
+
+```text
+.
+├── docs.json             # Contains structured metadata for the project 
+├── package-lock.json     # Auto-generated file that locks exact package versions installed via npm for mintlify
+```
+```
+Dashboard_src
+├── server.py              # Webserver UI
+├── health_model.py        # Predictive Algorithm
+├── requirements.txt       # Python dependencies
+```
+
+---
+
+### 🛠️ requirements.txt
+
+```txt
+flask
+flask-socketio
+eventlet
+```
+
+---
+
+### ✅ Status
+
+* [x] Backend deployed on Render
+* [x] Documentation live on Mintlify
+* [x] ESP integration working
+* [x] GitHub CI-ready
