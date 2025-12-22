@@ -62,7 +62,7 @@
         "primary": {
             "type": "button",
             "label": "Dashboard",
-            "href": "http://192.168.0.219:5000/"
+            "href": "https://mintlify-docs-w26p.onrender.com"
         }
     },
     "contextual": {
