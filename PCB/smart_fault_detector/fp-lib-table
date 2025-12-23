@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "PCBCUPID-GLYPHC3-Footprint")(type "KiCad")(uri "${KIPRJMOD}/GlyphC3/PCBCUPID-GLYPHC3-Footprint.pretty")(options "")(descr ""))
+  (lib (name "TL2230EEF140")(type "KiCad")(uri "${KIPRJMOD}/GlyphC3/TL2230EEF140")(options "")(descr ""))
+)

@@ -1,27 +1,26 @@
-# Smart Fault Detector - [Github](https://github.com/Addwaaait/Smart-Fault-Detector)
+# Smart Fault Detector
 
+## Project Description
+
+The **Smart-Fault-Detector** is a specialized diagnostic device engineered to detect actuator faults and failures in high-stakes systems like rockets and robotics. By monitoring the "pulse" of an actuator through electrical and mechanical sensors, it identifies anomalies before they lead to catastrophic system failure.
 
 ## 📘 Project Documentation & Deployment
 
 ### 🌐 Documentation (Mintlify)
+
 This project uses **Mintlify** to host clean, modern documentation.
 
 - Built using MDX
 - Supports images, code blocks, and downloadable assets
 - Automatically deployed on every update
 
-📖 **Docs URL:**  https://teamrobomanipal-3a657712.mintlify.app/Introduction
+**Documentation URL:**  <https://teamrobomanipal-3a657712.mintlify.app/Introduction>
+
 ````
 To run docs locally:
 npm install
 mintlify dev
 ````
-
-To deploy docs:
-
-```
-mintlify publish
-```
 
 ---
 
@@ -31,18 +30,18 @@ The backend is a **Flask + Socket.IO** server deployed on **Render**.
 
 #### Why Render?
 
-* Free tier support
-* Simple GitHub integration
-* Works well with Flask APIs
-* Public endpoint accessible by ESP devices
+- Free tier support
+- Simple GitHub integration
+- Works well with Flask APIs
+- Public endpoint accessible by ESP devices
 
 #### Tech Stack
 
-* Python
-* Flask
-* Flask-SocketIO
-* Eventlet
-* Render Web Service
+- Python
+- Flask
+- Flask-SocketIO
+- Eventlet
+- Render Web Service
 
 #### Deployment Flow
 
@@ -51,17 +50,18 @@ The backend is a **Flask + Socket.IO** server deployed on **Render**.
 3. Render installs dependencies from `requirements.txt`
 4. App runs on a public HTTPS URL
 
-#### **Backend URL:** [https://teamrobomanipal-3a657712.mintlify.app/Introduction](https://mintlify-docs-w26p.onrender.com
-
+#### **Dashboard URL:** <https://mintlify-docs-w26p.onrender.com>
 
 ---
 
 ### 📡 ESP ↔ Server Communication
 
-* ESP device sends data via HTTP / Socket.IO
-* Flask server receives and processes data
-* Real-time updates supported using WebSockets
-* Designed for low-latency actuator/health monitoring
+- ESP device sends data via HTTP / Socket.IO
+
+- Flask server receives and processes data
+
+- Real-time updates supported using WebSockets
+- Designed for low-latency actuator/health monitoring
 
 ---
 
@@ -69,9 +69,16 @@ The backend is a **Flask + Socket.IO** server deployed on **Render**.
 
 ```text
 .
-├── docs.json             # Contains structured metadata for the project 
-├── package-lock.json     # Auto-generated file that locks exact package versions installed via npm for mintlify
+├── Firmware            # Contains ESP32-C3 Code
+├── PCB                 # KiCAD Design Files
 ```
+
+```
+.
+├── docs.json             # Contains structured metadata for the project 
+├── package-lock.json     # Auto-generated file for mintlify
+```
+
 ```
 Dashboard_src
 ├── server.py              # Webserver UI
@@ -93,7 +100,6 @@ eventlet
 
 ### ✅ Status
 
-* [x] Backend deployed on Render
-* [x] Documentation live on Mintlify
-* [x] ESP integration working
-* [x] GitHub CI-ready
+- [x] Backend deployed on Render
+- [x] Documentation live on Mintlify
+- [x] ESP integration working

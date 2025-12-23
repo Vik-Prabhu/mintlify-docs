@@ -1,0 +1,249 @@
+(footprint "LM2596_Buck"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 -20.32 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "0a92a502-dffa-46e6-a924-e1821b62cb20")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "LM2596_Buck"
+		(at 0 -18.82 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "a5d919d0-3e26-473c-8d3f-3578254c0db6")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 -19.82 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f303c982-7923-47ef-93ca-bbb7039bdb4b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -19.82 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c994b4b1-8a9f-4249-8a12-aaf2d602f9c9")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 -19.82 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "bb3044d0-ff43-4fab-a4f0-84ac413c1019")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_line
+		(start -22.86 -10.16)
+		(end 22.86 -10.16)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "7b0c762d-0731-457d-86c5-3ddff5adbc86")
+	)
+	(fp_line
+		(start -22.86 12.7)
+		(end -22.86 -10.16)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "a06468a9-a668-41fc-8bd5-384bbd503515")
+	)
+	(fp_line
+		(start 22.86 -10.16)
+		(end 22.86 12.7)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "637abb6a-e431-433b-8c08-d18aba461b10")
+	)
+	(fp_line
+		(start 22.86 12.7)
+		(end -22.86 12.7)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "1fe50e6f-f00e-4904-ba66-65caebbe5c9d")
+	)
+	(fp_line
+		(start -25.4 -12.7)
+		(end 25.4 -12.7)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "42626c3c-b69e-41e4-a475-8e2a5ad6802f")
+	)
+	(fp_line
+		(start -25.4 15.24)
+		(end -25.4 -12.7)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "591ebd33-6a13-4c00-8e18-267892e531ed")
+	)
+	(fp_line
+		(start 25.4 -12.7)
+		(end 25.4 15.24)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "4c683f47-05bd-4e4a-8a7e-721a346d58cb")
+	)
+	(fp_line
+		(start 25.4 15.24)
+		(end -25.4 15.24)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "e9b4cf0c-cd87-4026-9e66-bc5e030424f8")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 -17.32 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "99fa701d-5bd7-4524-af2b-8e7061259870")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at -20.32 -7.62)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "da35878d-bb58-4127-b7f7-fbb9c8e6a0ce")
+	)
+	(pad "2" thru_hole circle
+		(at -20.32 10.16)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "e6355892-a0cb-4830-a97e-5648025dcd94")
+	)
+	(pad "3" thru_hole circle
+		(at 20.32 -7.62)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "01dadedb-4d9e-4f75-ab6d-05c2d668563b")
+	)
+	(pad "4" thru_hole circle
+		(at 20.32 10.16)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "23ba19a3-256a-46b5-8f24-a98ac83843ec")
+	)
+	(model "C:/Program Files/KiCad/7.0/share/kicad/3dmodels/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x01_P2.54mm_Vertical.step"
+		(offset
+			(xyz -20.5 -10.5 -0.5)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+	(model "D:/RM/GrabCAD files/LM2596_Buck.snapshot.2/lm2596-dc-to-dc-buck-converter-module-1.snapshot.10/LM2596 DC to DC Buck Converter 3 A.STEP"
+		(offset
+			(xyz -0.5 -1.5 7)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 0 0)
+		)
+	)
+	(model "C:/Program Files/KiCad/7.0/share/kicad/3dmodels/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x01_P2.54mm_Vertical.step"
+		(offset
+			(xyz -20.5 7.5 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+	(model "C:/Program Files/KiCad/7.0/share/kicad/3dmodels/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x01_P2.54mm_Vertical.step"
+		(offset
+			(xyz 19.5 -10.5 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+	(model "C:/Program Files/KiCad/7.0/share/kicad/3dmodels/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x01_P2.54mm_Vertical.step"
+		(offset
+			(xyz 19.5 7.5 -0.5)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)
