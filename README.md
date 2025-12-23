@@ -14,7 +14,7 @@ This project uses **Mintlify** to host clean, modern documentation.
 - Supports images, code blocks, and downloadable assets
 - Automatically deployed on every update
 
-**Documentation URL:**  <https://teamrobomanipal-3a657712.mintlify.app/Introduction>
+**Documentation URL:**  https://teamrobomanipal-3a657712.mintlify.app/Introduction
 
 ````
 To run docs locally:
@@ -50,7 +50,7 @@ The backend is a **Flask + Socket.IO** server deployed on **Render**.
 3. Render installs dependencies from `requirements.txt`
 4. App runs on a public HTTPS URL
 
-#### **Dashboard URL:** <https://mintlify-docs-w26p.onrender.com>
+ **Dashboard URL:** https://mintlify-docs-w26p.onrender.com
 
 ---
 
